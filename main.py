@@ -1,3 +1,4 @@
+import csv
 
 class Item:
     pay_rate = 0.8  #20% sconto
@@ -14,7 +15,7 @@ class Item:
         self.name = name
         self.price = price
         self.quantity = quantity
-
+           
         Item.all_items.append(self)
     
     def __repr__(self):
@@ -25,8 +26,24 @@ class Item:
 
     def apply_discount(self, price):
         return price * self.pay_rate
+    
+    def is_integer(self,num):
+        try:
+            num = int(num)
+            print(True)
+            return True
+        except:
+            print(False)
+            return False
 
-item1 = Item("Phone", 100, 1)
+    
+    def read_from_csv(self):
+        input_file = csv.DictReader(open("items.csv"))
+        for item in input_file:
+            self.is_integer(item['quantity'])        
+     
+
+item1 = Item("Phone", 100, 9.8)
 item2 = Item("Laptop", 1000, 3)
 item3 = Item("Cable", 10, 5)
 item4 = Item("Mouse", 50, 5)
