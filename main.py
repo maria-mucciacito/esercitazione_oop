@@ -25,22 +25,25 @@ class Item:
         return self.apply_discount(self.price) * self.quantity
 
     def apply_discount(self, price):
-        return price * self.pay_rate
+        return price * self.pay_rates
     
-    def is_integer(self,num):
+    @staticmethod
+    def is_integer(num):
         try:
             num = int(num)
-            print(True)
             return True
-        except:
-            print(False)
+        except ValueError:
             return False
 
     
-    def read_from_csv(self):
+    @classmethod
+    def read_from_csv(cls):
         input_file = csv.DictReader(open("items.csv"))
-        for item in input_file:
-            self.is_integer(item['quantity'])        
+        items = list(input_file)
+        for item in items:
+            if cls.is_integer(item.get('qunatity')):
+                pass
+    
      
 
 item1 = Item("Phone", 100, 9.8)
