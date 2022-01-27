@@ -25,12 +25,12 @@ class Item:
         return self.apply_discount(self.price) * self.quantity
 
     def apply_discount(self, price):
-        return price * self.pay_rates
+        return price * self.pay_rate
     
     @staticmethod
     def is_integer(num):
         try:
-            num = int(num)
+            int(num)
             return True
         except ValueError:
             return False
@@ -38,11 +38,12 @@ class Item:
     
     @classmethod
     def read_from_csv(cls):
-        input_file = csv.DictReader(open("items.csv"))
+        input_file = csv.DictReader(open("esercitazione_oop/items.csv"))
         items = list(input_file)
         for item in items:
             if cls.is_integer(item.get('qunatity')):
-                pass
+                Item(name = item.get('name'), price=float(item.get('price')), quantity=int(item.get('quantity')))
+
     
      
 
@@ -55,3 +56,5 @@ item5 = Item("Keyboard", 75, 5)
 print(Item.all_items)
 for i in Item.all_items: 
     print(i.name + " - " + str(i.calculate_total_price()))
+
+print(Item.read_from_csv())
